@@ -41,3 +41,15 @@ Below are the primary entities you’ll find in this codebase:
 3. **Propose and/or implement improvements**: Refactor, rewrite, or reorganize parts of the code to showcase your approach.
 
 ---
+
+## TODO List
+
+1. Change Appointment date type to LocalDateTime or LocalDate.
+2. Create new methods on repositories(with queries) in order to avoid manipulating the data inside the application.
+3. Change create appointments approach. 
+     - Change to Reason class which would have Reason(String) and Date as fields in order to avoid errors.
+     - If kept this way with lists: return error when lists have different size with a 422 describing the error. 
+4. Add docker compose with a DB and some schema migrations to allow it to be easily tested and run on local environment. 
+5. Improve test coverage, specially in Service layers. 
+6. Finish the integration tests. 
+7. Remove SSN and patient name from logs to avoid data leakages
