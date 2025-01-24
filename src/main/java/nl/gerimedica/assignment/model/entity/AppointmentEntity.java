@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
 @Entity
 @EqualsAndHashCode
 @AllArgsConstructor

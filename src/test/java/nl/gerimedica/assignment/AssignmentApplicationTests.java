@@ -17,14 +17,5 @@ class AssignmentApplicationTests {
 		restTemplate = new RestTemplate();
 	}
 
-	@Test
-	void testSuccess() {
-		String url = "http://localhost:8080/api/appointments-by-reason?keyword=Checkup";
 
-		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-		String body = response.getBody();
-
-		assertTrue(body.contains("\"reason\" : \"SomeNonExistentField\""));
-	}
 }

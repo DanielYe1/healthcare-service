@@ -1,6 +1,7 @@
 package nl.gerimedica.assignment.controller;
 
 import nl.gerimedica.assignment.model.Appointment;
+import nl.gerimedica.assignment.service.AppointmentService;
 import nl.gerimedica.assignment.service.HospitalService;
 import nl.gerimedica.assignment.utils.HospitalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -17,6 +19,9 @@ public class AppointmentController {
 
     @Autowired
     HospitalService hospitalService;
+
+    @Autowired
+    AppointmentService appointmentService;
 
     /**
      * Example: {
@@ -36,24 +41,27 @@ public class AppointmentController {
         HospitalUtils.recordUsage("Controller triggered bulk appointments creation");
 
         List<Appointment> created = hospitalService.bulkCreateAppointments(patientName, ssn, reasons, dates);
-        return new ResponseEntity<>(created, HttpStatus.OK);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @GetMapping("/appointments-by-reason")
     public ResponseEntity<List<Appointment>> getAppointmentsByReason(@RequestParam String keyword) {
-        List<Appointment> found = hospitalService.getAppointmentsByReason(keyword);
+        List<Appointment> found = appointmentService.getAppointmentsByReason(keyword);
         return new ResponseEntity<>(found, HttpStatus.OK);
     }
 
     @PostMapping("/delete-appointments")
     public ResponseEntity<String> deleteAppointmentsBySSN(@RequestParam String ssn) {
-        hospitalService.deleteAppointmentsBySSN(ssn);
-        return new ResponseEntity<>("Deleted all appointments for SSN: " + ssn, HttpStatus.OK);
+        appointmentService.deleteAppointmentsBySSN(ssn);
+        return new ResponseEntity<>("Deleted all appointments for SSN: " + ssn, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/appointments/latest")
     public ResponseEntity<Appointment> getLatestAppointment(@RequestParam String ssn) {
-        Appointment latest = hospitalService.findLatestAppointmentBySSN(ssn);
-        return new ResponseEntity<>(latest, HttpStatus.OK);
+        Optional<Appointment> latest = appointmentService.findLatestAppointmentBySSN(ssn);
+        if(latest.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(latest.get(), HttpStatus.OK);
     }
 }

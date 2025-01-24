@@ -1,11 +1,8 @@
 package nl.gerimedica.assignment.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
