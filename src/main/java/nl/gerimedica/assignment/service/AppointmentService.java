@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import nl.gerimedica.assignment.mapper.AppointmentMapper;
 import nl.gerimedica.assignment.model.Appointment;
 import nl.gerimedica.assignment.model.Patient;
+import nl.gerimedica.assignment.model.entity.AppointmentEntity;
 import nl.gerimedica.assignment.repository.AppointmentRepository;
 import nl.gerimedica.assignment.utils.HospitalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,27 +57,11 @@ public class AppointmentService {
 
 
     public List<Appointment> getAppointmentsByReason(String reasonKeyword) {
+        List<AppointmentEntity> appointmentsByReason = repository.getAppointmentsByReason(reasonKeyword);
+        HospitalUtils.recordUsage("Get appointments by reason");
 
-        List<Appointment> allAppointments = appointmentMapper.toDTOList(repository.findAll());
-        List<Appointment> matched = new ArrayList<>();
+        return appointmentMapper.toDTOList(appointmentsByReason);
 
-        for (Appointment ap : allAppointments) {
-            if (ap.getReason().contains(reasonKeyword)) {
-                matched.add(ap);
-            }
-        }
-
-        List<Appointment> finalList = new ArrayList<>();
-        for (Appointment ap : matched) {
-            if (ap.getReason().equalsIgnoreCase(reasonKeyword)) {
-                finalList.add(ap);
-            }
-        }
-
-        HospitalUtils utils = new HospitalUtils();
-        utils.recordUsage("Get appointments by reason");
-
-        return finalList;
     }
 
 

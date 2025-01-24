@@ -38,8 +38,6 @@ public class AppointmentController {
         List<String> reasons = payload.get("reasons");
         List<String> dates = payload.get("dates");
 
-        HospitalUtils.recordUsage("Controller triggered bulk appointments creation");
-
         List<Appointment> created = hospitalService.bulkCreateAppointments(patientName, ssn, reasons, dates);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }

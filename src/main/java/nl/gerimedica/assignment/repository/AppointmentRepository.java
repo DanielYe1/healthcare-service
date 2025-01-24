@@ -13,7 +13,7 @@ public interface AppointmentRepository extends JpaRepository<AppointmentEntity, 
 
     List<AppointmentEntity> getAppointmentsByReason(String reason);
 
-    // custom query later
+    // custom query
     void deleteAppointmentsByPatientSsn(String reason);
 
     Optional<Appointment> getLatestAppointmentBySsn(String ssn);

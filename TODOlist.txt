@@ -1,0 +1,14 @@
+Change Appointment date type to LocalDateTime or LocalDate.
+
+Create new methods on repositories(with queries) in order to avoid manipulating the data inside the application.
+
+Change create appointments approach. If kept this way with lists: return error when lists have different size.
+Otherwise change to Reason class which would have Reason(String) and Date as fields in order to avoid errors.
+
+Add docker compose with a DB and some schema migrations to allow it to be easily tested and run on local environment.
+
+Improve test coverage, specially in Service layers.
+
+Make an integration test.
+
+Remove SSN and patient name from logs to avoid data leakages

@@ -3,6 +3,7 @@ package nl.gerimedica.assignment.service;
 import lombok.extern.slf4j.Slf4j;
 import nl.gerimedica.assignment.model.Appointment;
 import nl.gerimedica.assignment.model.Patient;
+import nl.gerimedica.assignment.utils.HospitalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class HospitalService {
             List<String> reasons,
             List<String> dates
     ) {
+
+        HospitalUtils.recordUsage("Controller triggered bulk appointments creation");
 
         Patient patient = patientService.createPatient(patientName, ssn);
 

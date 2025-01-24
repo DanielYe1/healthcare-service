@@ -36,9 +36,7 @@ public class PatientService {
 
     private Optional<Patient> findPatientBySSN(String ssn) {
 
-        Optional<Patient> patient = patientRepository.findPatientBySSN(ssn).map(c -> patientMapper.toDTO(c));
-
-        return patient;
+        return patientRepository.findPatientBySSN(ssn).map(c -> patientMapper.toDTO(c));
     }
 
     @Transactional
