@@ -1,39 +1,19 @@
 package nl.gerimedica.assignment.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Appointment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    public String reason;
-    public String date;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-    public Patient patient;
+    private String reason;
+    private String date;
+    private Patient patient;
 
-    public Appointment() {
-    }
-
-    public Appointment(String reason, String date, Patient patient) {
-        this.reason = reason;
-        this.date = date;
-        this.patient = patient;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Appointment that)) return false;
-        return Objects.equals(reason, that.reason);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(reason);
-    }
 }
